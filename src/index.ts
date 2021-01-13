@@ -1,12 +1,12 @@
 import * as _utils from './utils';
 
 // Hacky? Yep, but sometimes you gotta do what you gotta do
-export { Types, IExif, IExifElement } from './interfaces';
+export { Types, IExif, IExifElement, ErrorCallback } from './interfaces';
 export { TagValues } from './constants';
 export { GPSHelper } from './helper';
 export { ValueConvertError } from './exceptions';
 
-import { Types, IExif, IExifElement } from './interfaces';
+import { Types, IExif, IExifElement, ErrorCallback } from './interfaces';
 import { TagValues } from './constants';
 
 export const version = '2.0.0b';
@@ -104,12 +104,16 @@ export const load = (binary: string): IExif => {
   let interopIfd: IExifElement = null;
   let gpsIfd: IExifElement = null;
   let thumbnail: string = null;
+  let firstIfdPointer: string = null;
   const pointer = _utils.unpack(
     exifReader.endianMark + 'L',
     exifReader.tiftag.slice(4, 8),
   )[0];
-  zerothIfd = exifReader.getIfd(pointer, '0th');
-  const firstIfdPointer = exifReader.getFirstIfdPointer(pointer, '0th');
+
+  if (pointer != null) {
+    zerothIfd = exifReader.getIfd(pointer, '0th');
+    firstIfdPointer = exifReader.getFirstIfdPointer(pointer, '0th');
+  }
 
   if (zerothIfd !== null && 34665 in zerothIfd) {
     const pointer = zerothIfd[34665];
@@ -123,15 +127,17 @@ export const load = (binary: string): IExif => {
     const pointer = exifIfd[40965];
     interopIfd = exifReader.getIfd(pointer, 'Interop');
   }
-  if (firstIfdPointer != '\x00\x00\x00\x00') {
+  if (firstIfdPointer !== null && firstIfdPointer != '\x00\x00\x00\x00') {
     const pointer = _utils.unpack(
       exifReader.endianMark + 'L',
       firstIfdPointer,
     )[0];
-    firstIfd = exifReader.getIfd(pointer, '1st');
-    if (firstIfd !== null && 513 in firstIfd && 514 in firstIfd) {
-      const end = firstIfd[513] + firstIfd[514];
-      thumbnail = exifReader.tiftag.slice(firstIfd[513], end);
+    if (pointer !== null) {
+      firstIfd = exifReader.getIfd(pointer, '1st');
+      if (firstIfd !== null && 513 in firstIfd && 514 in firstIfd) {
+        const end = firstIfd[513] + firstIfd[514];
+        thumbnail = exifReader.tiftag.slice(firstIfd[513], end);
+      }
     }
   }
 
@@ -350,4 +356,23 @@ export const dump = (originalExifObj: IExif): string => {
     interopIfdBytes +
     firstIfdBytes
   );
+};
+
+export const setErrorByPass = (
+  bypass: boolean,
+  errorCallback?: ErrorCallback,
+): void => {
+  _utils.setErrorByPass(bypass, errorCallback);
+};
+
+export const resetOrientation = (exifObject: IExif): IExif => {
+  const orientationKey = TagValues.ImageIFD.Orientation;
+
+  if (exifObject['0th']) {
+    if (exifObject['0th'][orientationKey]) {
+      exifObject['0th'][orientationKey] = 1;
+    }
+  }
+
+  return exifObject;
 };

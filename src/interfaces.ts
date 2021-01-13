@@ -366,3 +366,5 @@ export interface ITagValues {
     InteroperabilityIndex: number;
   };
 }
+
+export type ErrorCallback = (e: string) => void;
