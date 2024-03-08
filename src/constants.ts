@@ -799,6 +799,18 @@ export const Tags: ITags = {
       name: 'DateTimeDigitized',
       type: Types.Ascii,
     },
+    36880: {
+      name: 'OffsetTime',
+      type: Types.Ascii,
+    },
+    36881: {
+      name: 'OffsetTimeOriginal',
+      type: Types.Ascii,
+    },
+    36882: {
+      name: 'OffsetTimeDigitized',
+      type: Types.Ascii,
+    },
     37121: {
       name: 'ComponentsConfiguration',
       type: Types.Undefined,
@@ -870,6 +882,30 @@ export const Tags: ITags = {
     37522: {
       name: 'SubSecTimeDigitized',
       type: Types.Ascii,
+    },
+    37888: {
+      name: 'Temperature',
+      type: Types.SRational,
+    },
+    37889: {
+      name: 'Humidity',
+      type: Types.Rational,
+    },
+    37890: {
+      name: 'Pressure',
+      type: Types.Rational,
+    },
+    37891: {
+      name: 'WaterDepth',
+      type: Types.SRational,
+    },
+    37892: {
+      name: 'Acceleration',
+      type: Types.Rational,
+    },
+    37893: {
+      name: 'CameraElevationAngle',
+      type: Types.SRational,
     },
     40960: {
       name: 'FlashpixVersion',
@@ -1014,6 +1050,18 @@ export const Tags: ITags = {
     42037: {
       name: 'LensSerialNumber',
       type: Types.Ascii,
+    },
+    42080: {
+      name: 'CompositeImage',
+      type: Types.Short,
+    },
+    42081: {
+      name: 'SourceImageNumberOfCompositeImage',
+      type: Types.Short,
+    },
+    42082: {
+      name: 'SourceExposureTimesOfCompositeImage',
+      type: Types.Undefined,
     },
     42240: {
       name: 'Gamma',
@@ -1362,6 +1410,9 @@ export const TagValues: ITagValues = {
     ExifVersion: 36864,
     DateTimeOriginal: 36867,
     DateTimeDigitized: 36868,
+    OffsetTime: 36880,
+    OffsetTimeOriginal: 36881,
+    OffsetTimeDigitized: 36882,
     ComponentsConfiguration: 37121,
     CompressedBitsPerPixel: 37122,
     ShutterSpeedValue: 37377,
@@ -1380,6 +1431,12 @@ export const TagValues: ITagValues = {
     SubSecTime: 37520,
     SubSecTimeOriginal: 37521,
     SubSecTimeDigitized: 37522,
+    Temperature: 37888,
+    Humidity: 37889,
+    Pressure: 37890,
+    WaterDepth: 37891,
+    Acceleration: 37892,
+    CameraElevationAngle: 37893,
     FlashpixVersion: 40960,
     ColorSpace: 40961,
     PixelXDimension: 40962,
@@ -1416,6 +1473,9 @@ export const TagValues: ITagValues = {
     LensMake: 42035,
     LensModel: 42036,
     LensSerialNumber: 42037,
+    CompositeImage: 42080,
+    SourceImageNumberOfCompositeImage: 42081,
+    SourceExposureTimesOfCompositeImage: 42082,
     Gamma: 42240,
   },
   GPSIFD: {

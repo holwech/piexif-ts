@@ -272,6 +272,9 @@ export interface ITagValues {
     ExifVersion: number;
     DateTimeOriginal: number;
     DateTimeDigitized: number;
+    OffsetTime: number;
+    OffsetTimeOriginal: number;
+    OffsetTimeDigitized: number;
     ComponentsConfiguration: number;
     CompressedBitsPerPixel: number;
     ShutterSpeedValue: number;
@@ -290,6 +293,12 @@ export interface ITagValues {
     SubSecTime: number;
     SubSecTimeOriginal: number;
     SubSecTimeDigitized: number;
+    Temperature: number;
+    Humidity: number;
+    Pressure: number;
+    WaterDepth: number;
+    Acceleration: number;
+    CameraElevationAngle: number;
     FlashpixVersion: number;
     ColorSpace: number;
     PixelXDimension: number;
@@ -326,6 +335,9 @@ export interface ITagValues {
     LensMake: number;
     LensModel: number;
     LensSerialNumber: number;
+    CompositeImage: number;
+    SourceImageNumberOfCompositeImage: number;
+    SourceExposureTimesOfCompositeImage: number;
     Gamma: number;
   };
   GPSIFD: {
