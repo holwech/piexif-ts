@@ -532,7 +532,7 @@ export const dictToBytes = (
     entriesLength = 2 + tagCount * 12;
   }
   let entries = '';
-  let values = '';
+  let values = '\x00\x00\x00\x00';
   let key;
 
   for (key in ifdObj) {
