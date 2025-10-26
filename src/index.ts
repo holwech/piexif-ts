@@ -79,10 +79,10 @@ export const load = (binary: string): IExif => {
     } else if (binary.slice(0, 4) == 'Exif') {
       exifBinary = binary.slice(6);
     } else {
-      throw new Error("'load' gots invalid file data.");
+      throw new Error("'load' got invalid file data.");
     }
   } else {
-    throw new Error("'load' gots invalid type argument.");
+    throw new Error("'load' got invalid argument - expected type to be 'string' but got: '" + typeof binary + "'");
   }
 
   const exifObj: IExif = {};
